@@ -15,13 +15,13 @@ class Point {
     this.y = y;
   }
 
-  distanceTo = point => {
+  distanceTo = (point) => {
     let xDelta = this.x - point.x;
     let yDelta = this.y - point.y;
     return Math.sqrt(xDelta * xDelta + yDelta * yDelta); // PYTHAGORAS!
   };
 
-  equals = point => point.x === this.x && point.y === this.y;
+  equals = (point) => point.x === this.x && point.y === this.y;
 
   static randomPoint = (maxX, maxY) => {
     let x = Math.random() * (maxX || 100);
@@ -43,12 +43,19 @@ class Point {
  **********************************************************/
 class Wallet {
   // implement Wallet!
-  constructor(money = 0) {}
+  constructor(money = 0) {
+    this.money = money;
+  }
 
-  credit = amount => {};
+  credit = (amount) => {
+    return (this.money = this.money + amount);
+  };
 
-  debit = amount => {};
+  debit = (amount) => {
+    return (this.money = this.money - amount);
+  };
 }
+let wallet = new Wallet();
 
 /**********************************************************
  * Person: defines a person with a name (and feelings)
@@ -61,8 +68,16 @@ class Wallet {
  *
  * let person = new Person(name, x, y);
  **********************************************************/
-class Person {
-  // implement Person!
+class Person extends Wallet {
+  constructor(name, x, y) {
+    // implement Person!
+    this.name = name;
+    this.location = new point(x, y);
+    this.wallet = new Wallet();
+  }
+  moveTo = (point) => {
+    this.location = point;
+  };
 }
 
 /**********************************************************
